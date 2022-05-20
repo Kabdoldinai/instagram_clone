@@ -1,6 +1,5 @@
-import minifaker, {username} from 'minifaker';
+import minifaker from 'minifaker';
 import {useEffect, useState} from "react";
-import "minifaker/locales/en";
 import Story from "./Story";
 
 
