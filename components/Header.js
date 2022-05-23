@@ -5,10 +5,12 @@ import { HomeIcon } from '@heroicons/react/solid';
 import {useSession, signIn, signOut} from "next-auth/react";
 import {useRecoilState} from "recoil";
 import {modalState} from "../atom/modalAtom";
+import {useRouter} from "next/router";
 
 export default function Header(){
     const {data: session} = useSession();
     const [open, setOpen] = useRecoilState(modalState);
+    const router = useRouter();
     return (
         <div className='shadow-sm border-b sticky top-0 bg-white z-30'>
             <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
@@ -16,12 +18,16 @@ export default function Header(){
                 <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid ">
                     <Image src="https://logos-world.net/wp-content/uploads/2020/04/Instagram-Logo-2010-2013.png"
                            layout='fill'
-                           className="object-contain"/>
+                           className="object-contain"
+                           onClick={()=>router.push("/")}
+                    />
                 </div>
                 <div className="cursor-pointer h-24 w-10 relative  lg:hidden ">
                     <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png"
                            layout='fill'
-                           className="object-contain"/>
+                           className="object-contain"
+                           onClick={()=>router.push("/")}
+                    />
                 </div>
 
                 {/*Middle*/}
@@ -34,7 +40,7 @@ export default function Header(){
                 </div>
                 {/*Right*/}
                 <div className="flex space-x-4 items-center">
-                    <HomeIcon className="hidden md:inline-flex h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
+                    <HomeIcon onClick={()=>router.push("/")} className="hidden md:inline-flex h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
                     {session ? (
                         <>
                             <PlusCircleIcon onClick={()=>setOpen(true)} className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
