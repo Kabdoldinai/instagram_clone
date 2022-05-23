@@ -3,7 +3,7 @@ import {useRecoilState} from "recoil";
 import Modal from "react-modal";
 import {CameraIcon} from "@heroicons/react/outline";
 import {useRef, useState} from "react";
-import {addDoc, collection, serverTimestamp, updateDoc} from "firebase/firestore";
+import {addDoc, collection, serverTimestamp, updateDoc, doc} from "firebase/firestore";
 import {db , storage} from "../firebase";
 import {useSession} from "next-auth/react";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
