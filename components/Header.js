@@ -2,8 +2,11 @@ import React from "react";
 import Image from "next/image";
 import { SearchIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { HomeIcon } from '@heroicons/react/solid';
+import {useSession, signIn, signOut} from "next-auth/react";
 
 export default function Header(){
+    const {data: session} = useSession();
+    console.log(session)
     return (
         <div className='shadow-sm border-b sticky top-0 bg-white z-30'>
             <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
@@ -30,11 +33,20 @@ export default function Header(){
                 {/*Right*/}
                 <div className="flex space-x-4 items-center">
                     <HomeIcon className="hidden md:inline-flex h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
-                    <PlusCircleIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
-                    <img src="https://media-exp1.licdn.com/dms/image/C4E03AQEMgk9uzDHRyg/profile-displayphoto-shrink_800_800/0/1602739338338?e=1658361600&v=beta&t=TmeVF-66cQzsPz383jN1pUA8a3wegtg8Qh0J1ggmqmc" className='h-10 rounded-full cursor-pointer' alt='user-img'/>
+                    {session ? (
+                        <>
+                            <PlusCircleIcon className="h-5 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
+                            <img src={session.user.image}
+                                 onClick={signOut}
+                                 className='h-10 rounded-full cursor-pointer' alt='user-img'/>
+                        </>
+
+                    ):(
+                        <button onClick={signIn}> Sign in</button>
+                    )}
                 </div>
             </div>
         </div>
 
-    )
+    );
 }
